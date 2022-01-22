@@ -63,6 +63,6 @@ jobs:
             
       - uses: actions/upload-artifact@v2
         with:
-          name: pijul_git.exe
-          path: bin/pijul_git.exe
+          name: pijul-git.exe
+          path: bin/pijul-git.exe
         
