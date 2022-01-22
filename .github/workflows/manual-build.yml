@@ -39,6 +39,9 @@ jobs:
       - name: Build pijul with git feature
         shell: bash
         run: |
+          export VCPKG_ROOT=$VCPKG_INSTALLATION_ROOT
+          export LIB=$VCPKG_ROOT/installed/x64-windows-static-md/lib
+          export OPENSSL_DIR=$VCPKG_ROOT/installed/x64-windows-static-md
           cargo install pijul --version "~1.0.0-alpha" --root . --features git
           mv bin/pijul.exe bin/pijul-git.exe
           
