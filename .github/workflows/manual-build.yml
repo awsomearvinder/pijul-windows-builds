@@ -28,19 +28,20 @@ jobs:
           $VCPKG_INSTALLATION_ROOT/vcpkg.exe install --triplet=x64-windows-static-md xxhash zstd openssl openssl-windows
           cd $VCPKG_INSTALLATION_ROOT/installed/x64-windows-static-md/lib
           cp zstd_static.lib zstd.lib
-          
+        
       - name: Set env vars
         shell: bash
         run: |
-          export VCPKG_ROOT=$VCPKG_INSTALLATION_ROOT
-          export LIB=$VCPKG_ROOT/installed/x64-windows-static-md/lib
-          export OPENSSL_DIR=$VCPKG_ROOT/installed/x64-windows-static-md
+          echo "VCPKG_ROOT=$VCPKG_INSTALLATION_ROOT" >> $GITHUB_ENV
+          echo "LIB=$VCPKG_ROOT/installed/x64-windows-static-md/lib" >> $GITHUB_ENV
+          echo "OPENSSL_DIR=$VCPKG_ROOT/installed/x64-windows-static-md" >> $GITHUB_ENV
       
       - name: Build pijul with git feature
         shell: bash
         run: |
           cargo install pijul --version "~1.0.0-alpha" --root . --features git
           mv bin/pijul.exe bin/pijul-git.exe
+          
       # Runs a set of commands using the runners shell
       - name: Build pijul
         shell: bash
@@ -52,6 +53,7 @@ jobs:
           name: pijul.exe
           path: bin/pijul.exe
             # Upload the compiled binary
+            
       - uses: actions/upload-artifact@v2
         with:
           name: pijul_git.exe
