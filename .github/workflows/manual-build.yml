@@ -48,7 +48,11 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Build pijul
         shell: bash
-        run: cargo install pijul --version "~1.0.0-alpha" --root .
+        run: |
+          export VCPKG_ROOT=$VCPKG_INSTALLATION_ROOT
+          export LIB=$VCPKG_ROOT/installed/x64-windows-static-md/lib
+          export OPENSSL_DIR=$VCPKG_ROOT/installed/x64-windows-static-md
+          cargo install pijul --version "~1.0.0-alpha" --root .
       
       # Upload the compiled binary
       - uses: actions/upload-artifact@v2
